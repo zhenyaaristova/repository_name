@@ -1,0 +1,45 @@
+name: Demo CI/CD Pipeline
+
+on:
+  push:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Simulate linting
+        run: |
+          echo "Running lint..."
+          sleep 5
+          echo "Lint OK ✅"
+
+  build:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Simulate build
+        run: |
+          echo "Running build..."
+          sleep 10
+          echo "Build OK ✅"
+
+  cov:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Simulate code coverage check
+        run: |
+          echo "Checking coverage..."
+          sleep 8
+          echo "Coverage OK ✅"
+
+  test:
+    if: github.ref == 'refs/heads/main'
+    needs: cov
+    runs-on: ubuntu-latest
+    steps:
+      - name: Simulate tests
+        run: |
+          echo "Running tests..."
+          sleep 6
+          echo "Tests OK ✅"
